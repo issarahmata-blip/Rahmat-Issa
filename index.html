@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ramota Issa Bisola — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0e0e0e;
+    --paper: #f5f0e8;
+    --cream: #ede8da;
+    --gold: #b8860b;
+    --gold-light: #d4a017;
+    --teal: #1a5c52;
+    --teal-light: #2a8070;
+    --rust: #8b3a2a;
+    --muted: #6b6456;
+    --line: #ccc5b5;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* ── SIDE RULE ── */
+  .side-rule {
+    position: fixed;
+    left: 28px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--line);
+    z-index: 10;
+  }
+  .side-rule::after {
+    content: 'PORTFOLIO';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* ── HEADER ── */
+  header {
+    padding: 80px 80px 60px 80px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: 'RIB';
+    position: absolute;
+    right: -20px;
+    top: -30px;
+    font-family: 'Playfair Display', serif;
+    font-size: 220px;
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .header-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 6vw, 76px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -1px;
+    color: var(--ink);
+    animation: fadeUp 0.8s 0.1s ease both;
+    position: relative;
+    z-index: 1;
+  }
+
+  h1 span {
+    color: var(--teal);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .header-tagline {
+    margin-top: 20px;
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.7;
+    animation: fadeUp 0.8s 0.2s ease both;
+    position: relative;
+    z-index: 1;
+  }
+
+  .header-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 36px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .header-meta a, .header-meta span {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+  .header-meta a:hover { color: var(--teal); }
+  .header-meta .dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  main {
+    padding: 0 80px 80px 80px;
+    max-width: 1100px;
+  }
+
+  /* ── ACCORDION SECTION ── */
+  .accordion {
+    border-bottom: 1px solid var(--line);
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .accordion:nth-child(1) { animation-delay: 0.1s; }
+  .accordion:nth-child(2) { animation-delay: 0.2s; }
+  .accordion:nth-child(3) { animation-delay: 0.3s; }
+  .accordion:nth-child(4) { animation-delay: 0.4s; }
+  .accordion:nth-child(5) { animation-delay: 0.5s; }
+  .accordion:nth-child(6) { animation-delay: 0.6s; }
+  .accordion:nth-child(7) { animation-delay: 0.7s; }
+
+  .accordion-trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 32px 0;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    text-align: left;
+    position: relative;
+  }
+
+  .accordion-trigger:hover .acc-title { color: var(--teal); }
+
+  .acc-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    width: 32px;
+    flex-shrink: 0;
+  }
+
+  .acc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 700;
+    color: var(--ink);
+    flex: 1;
+    transition: color 0.3s;
+  }
+
+  .acc-subtitle {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 1px;
+  }
+
+  .acc-icon {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    color: var(--muted);
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1;
+  }
+
+  .accordion.open .acc-icon {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: white;
+    transform: rotate(45deg);
+  }
+
+  /* ── ACCORDION BODY ── */
+  .accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .accordion.open .accordion-body {
+    max-height: 2000px;
+  }
+
+  .accordion-inner {
+    padding: 0 0 48px 56px;
+  }
+
+  /* ── CONTENT COMPONENTS ── */
+
+  /* About */
+  .about-text {
+    font-size: 16px;
+    line-height: 1.85;
+    color: #3a342c;
+    max-width: 640px;
+    margin-bottom: 32px;
+  }
+
+  .badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .badge {
+    padding: 6px 14px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    background: var(--cream);
+    text-transform: uppercase;
+  }
+
+  /* Experience entries */
+  .exp-entry {
+    padding: 28px 0;
+    border-bottom: 1px dashed var(--line);
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 24px;
+  }
+  .exp-entry:last-child { border-bottom: none; }
+
+  .exp-meta { padding-top: 2px; }
+
+  .exp-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .exp-org {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .exp-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .exp-bullets li {
+    font-size: 13.5px;
+    color: #4a4238;
+    line-height: 1.65;
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .exp-bullets li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 11px;
+    top: 2px;
+  }
+
+  /* Skills grid */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .skill-group {
+    padding: 24px;
+    border: 1px solid var(--line);
+    margin: -1px 0 0 -1px;
+  }
+
+  .skill-group-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .skill-tag {
+    font-size: 12px;
+    color: var(--teal);
+    background: rgba(26, 92, 82, 0.07);
+    padding: 4px 10px;
+    border-radius: 1px;
+  }
+
+  /* Education */
+  .edu-entry {
+    padding: 24px 0;
+    border-bottom: 1px dashed var(--line);
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+  .edu-entry:last-child { border-bottom: none; }
+
+  .edu-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    width: 100px;
+    flex-shrink: 0;
+    padding-top: 3px;
+  }
+
+  .edu-degree {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .edu-school {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .edu-grade {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--teal);
+    letter-spacing: 1px;
+  }
+
+  /* Certs */
+  .cert-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .cert-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .cert-item:last-child { border-bottom: none; }
+
+  .cert-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .cert-name {
+    font-size: 14px;
+    color: var(--ink);
+    flex: 1;
+  }
+
+  .cert-issuer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* Conferences */
+  .conf-entry {
+    padding: 28px 0;
+    border-bottom: 1px dashed var(--line);
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 24px;
+  }
+  .conf-entry:last-child { border-bottom: none; }
+
+  .conf-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding-top: 3px;
+  }
+
+  .conf-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .conf-desc {
+    font-size: 13.5px;
+    color: #4a4238;
+    line-height: 1.65;
+  }
+
+  /* Leadership */
+  .lead-entry {
+    padding: 24px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .lead-entry:last-child { border-bottom: none; }
+
+  .lead-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .lead-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .lead-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 2px;
+  }
+
+  .lead-org {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 10px;
+    font-style: italic;
+  }
+
+  .lead-desc {
+    font-size: 13.5px;
+    color: #4a4238;
+    line-height: 1.65;
+  }
+
+  /* Contact */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .contact-item {
+    padding: 28px;
+    border: 1px solid var(--line);
+    margin: -1px 0 0 -1px;
+    transition: background 0.2s;
+  }
+  .contact-item:hover { background: var(--cream); }
+
+  .contact-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .contact-value {
+    font-size: 15px;
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 400;
+  }
+  a.contact-value:hover { color: var(--teal); text-decoration: underline; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 720px) {
+    header, main { padding-left: 48px; padding-right: 24px; }
+    .exp-entry, .conf-entry { grid-template-columns: 1fr; gap: 8px; }
+    .skills-grid, .contact-grid { grid-template-columns: 1fr; }
+    header::before { font-size: 120px; }
+    .accordion-inner { padding-left: 24px; }
+    .side-rule { left: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="side-rule"></div>
+
+<header>
+  <div class="header-eyebrow">Professional Portfolio — 2026</div>
+  <h1>Ramota Issa<br><span>Bisola</span></h1>
+  <p class="header-tagline">Data Analyst · Media Specialist · Peace Advocate · Project Manager · Digital Journalist · Youth Empowerment Leader</p>
+  <div class="header-meta">
+    <span><span class="dot"></span>Lagos, Nigeria</span>
+    <a href="mailto:issarahmata@gmail.com"><span class="dot"></span>issarahmata@gmail.com</a>
+    <span><span class="dot"></span>09036449279</span>
+    <span><span class="dot"></span>English · Yoruba · Hausa</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- 01 ABOUT -->
+  <div class="accordion" id="acc-about">
+    <button class="accordion-trigger" onclick="toggle('acc-about')">
+      <span class="acc-number">01</span>
+      <div>
+        <div class="acc-title">About</div>
+        <div class="acc-subtitle">Profile & Identity</div>
+      </div>
+      <span class="acc-icon">+</span>
+    </button>
+    <div class="accordion-body">
+      <div class="accordion-inner">
+        <p class="about-text">
+          I am a peace advocate, data analyst, and creative professional based in Lagos, Nigeria. With a background in Information and Media Studies from Bayero University, Kano, I blend analytical rigour with human-centred storytelling to drive meaningful change across communities and institutions.
+        </p>
+        <p class="about-text">
+          My work spans international peacebuilding, data-driven programme management, digital communications, and youth empowerment — with organisations operating from Lagos to Dubai to Nairobi. I bring both the technical depth of a data analyst and the strategic vision of a project manager to every initiative I join.
+        </p>
+        <div class="badge-row">
+          <span class="badge">SDG 16 Champion</span>
+          <span class="badge">Peacebuilding</span>
+          <span class="badge">Data & Analytics</span>
+          <span class="badge">Digital Media</span>
+          <span class="badge">Youth Empowerment</span>
+          <span class="badge">International Development</span>
+          <span class="badge">Multilingual</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 EXPERIENCE -->
+  <div class="accordion" id="acc-exp">
+    <button class="accordion-trigger" onclick="toggle('acc-exp')">
+      <span class="acc-number">02</span>
+      <div>
+        <div class="acc-title">Experience</div>
+        <div class="acc-subtitle">Professional History</div>
+      </div>
+      <span class="acc-icon">+</span>
+    </button>
+    <div class="accordion-body">
+      <div class="accordion-inner">
+
+        <div class="exp-entry">
+          <div class="exp-meta">
+            <div class="exp-period">Feb 2026 – Present</div>
+            <div class="exp-org">Global Mentoring Club<br>Lagos, Nigeria</div>
+          </div>
+          <div>
+            <div class="exp-role">Data Entry & Operations Manager</div>
+            <ul class="exp-bullets">
+              <li>Designed and maintained SOPs for a small business loan programme, ensuring data consistency across 100+ applicant records.</li>
+              <li>Built automated data intake workflows using Zapier, reducing manual entry time and minimising input errors.</li>
+              <li>Developed structured Google Forms for data collection, improving record reliability and cross-team accessibility.</li>
+              <li>Maintained partnership documentation and operational records in coordination with Teeru Bank.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-entry">
+          <div class="exp-meta">
+            <div class="exp-period">Aug 2025 – Feb 2026</div>
+            <div class="exp-org">Scallop Media & Technology<br>Lagos, Nigeria</div>
+          </div>
+          <div>
+            <div class="exp-role">Project Manager & Data Analyst</div>
+            <ul class="exp-bullets">
+              <li>Collected, organised, and analysed data from 5 youth empowerment initiatives, producing programme performance reports.</li>
+              <li>Maintained accurate project records for 150+ beneficiaries, ensuring data integrity across all reporting cycles.</li>
+              <li>Produced data-driven insights that directly informed programme design and resource allocation decisions.</li>
+              <li>Mentored over 100 youths on ethical, civic, and digital values.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-entry">
+          <div class="exp-meta">
+            <div class="exp-period">Jul 2023 – Sep 2025</div>
+            <div class="exp-org">Manara Center for Coexistence<br>& Dialogue · Dubai, UAE</div>
+          </div>
+          <div>
+            <div class="exp-role">Researcher & Campaign Manager</div>
+            <ul class="exp-bullets">
+              <li>Spearheaded international research across 5 states, developing data-driven conflict-resolution strategies used by 2,000+ beneficiaries.</li>
+              <li>Planned and executed social media campaigns promoting non-violence, achieving a 40% increase in audience engagement.</li>
+              <li>Represented the centre at high-profile events in Dubai and Kenya, presenting peacebuilding success stories to global policymakers.</li>
+              <li>Managed community programmes, content scheduling, and financial resource tracking across multiple concurrent projects.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 SKILLS -->
+  <div class="accordion" id="acc-skills">
+    <button class="accordion-trigger" onclick="toggle('acc-skills')">
+      <span class="acc-number">03</span>
+      <div>
+        <div class="acc-title">Skills</div>
+        <div class="acc-subtitle">Technical & Professional Competencies</div>
+      </div>
+      <span class="acc-icon">+</span>
+    </button>
+    <div class="accordion-body">
+      <div class="accordion-inner">
+        <div class="skills-grid">
+          <div class="skill-group">
+            <div class="skill-group-label">Data & Analytics</div>
+            <div class="skill-tags">
+              <span class="skill-tag">Microsoft Excel (Advanced)</span>
+              <span class="skill-tag">Power BI</span>
+              <span class="skill-tag">Tableau</span>
+              <span class="skill-tag">Google Sheets</span>
+              <span class="skill-tag">Data Validation</span>
+              <span class="skill-tag">DBMS</span>
+              <span class="skill-tag">Data Cleaning</span>
+              <span class="skill-tag">Reporting</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">Digital Media</div>
+            <div class="skill-tags">
+              <span class="skill-tag">Social Media Management</span>
+              <span class="skill-tag">Content Strategy</span>
+              <span class="skill-tag">Canva</span>
+              <span class="skill-tag">WordPress</span>
+              <span class="skill-tag">Campaign Planning</span>
+              <span class="skill-tag">Digital Storytelling</span>
+              <span class="skill-tag">News Writing</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">Project & Operations</div>
+            <div class="skill-tags">
+              <span class="skill-tag">Project Management</span>
+              <span class="skill-tag">SOP Development</span>
+              <span class="skill-tag">Process Improvement</span>
+              <span class="skill-tag">Stakeholder Relations</span>
+              <span class="skill-tag">Google Forms</span>
+              <span class="skill-tag">Zapier Automation</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">Soft Skills</div>
+            <div class="skill-tags">
+              <span class="skill-tag">Cross-cultural Communication</span>
+              <span class="skill-tag">Conflict Resolution</span>
+              <span class="skill-tag">Community Engagement</span>
+              <span class="skill-tag">Research & Analysis</span>
+              <span class="skill-tag">Ethical Journalism</span>
+              <span class="skill-tag">Youth Mentorship</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 EDUCATION -->
+  <div class="accordion" id="acc-edu">
+    <button class="accordion-trigger" onclick="toggle('acc-edu')">
+      <span class="acc-number">04</span>
+      <div>
+        <div class="acc-title">Education</div>
+        <div class="acc-subtitle">Academic Background</div>
+      </div>
+      <span class="acc-icon">+</span>
+    </button>
+    <div class="accordion-body">
+      <div class="accordion-inner">
+
+        <div class="edu-entry">
+          <div class="edu-year">2020 – 2025</div>
+          <div>
+            <div class="edu-degree">B.Sc. Information and Media Studies</div>
+            <div class="edu-school">Bayero University, Kano — Nigeria</div>
+            <div class="edu-grade">Upper Second-Class Honours (2:1) · CGPA 3.73</div>
+          </div>
+        </div>
+
+        <div class="edu-entry">
+          <div class="edu-year">2012 – 2018</div>
+          <div>
+            <div class="edu-degree">Senior Secondary Certificate (SSCE)</div>
+            <div class="edu-school">Oloye Comprehensive College</div>
+            <div class="edu-grade">West African Examinations Council</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 CERTIFICATIONS -->
+  <div class="accordion" id="acc-cert">
+    <button class="accordion-trigger" onclick="toggle('acc-cert')">
+      <span class="acc-number">05</span>
+      <div>
+        <div class="acc-title">Certifications</div>
+        <div class="acc-subtitle">Training & Professional Development</div>
+      </div>
+      <span class="acc-icon">+</span>
+    </button>
+    <div class="accordion-body">
+      <div class="accordion-inner">
+        <div class="cert-list">
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <div class="cert-name">Digital Marketing & Data Analytics Training</div>
+            <div class="cert-issuer">Scallop Media · 2025</div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <div class="cert-name">Google Project Management Certificate</div>
+            <div class="cert-issuer">Coursera · 2022</div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <div class="cert-name">Microsoft Package & Systems Engineering</div>
+            <div class="cert-issuer">TRIUS Computer Institute · 2018</div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <div class="cert-name">Employment Readiness Training</div>
+            <div class="cert-issuer">WAVE — West Africa Vocational Education · 2022</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06 CONFERENCES -->
+  <div class="accordion" id="acc-conf">
+    <button class="accordion-trigger" onclick="toggle('acc-conf')">
+      <span class="acc-number">06</span>
+      <div>
+        <div class="acc-title">Global Engagements</div>
+        <div class="acc-subtitle">Conferences & International Platforms</div>
+      </div>
+      <span class="acc-icon">+</span>
+    </button>
+    <div class="accordion-body">
+      <div class="accordion-inner">
+
+        <div class="conf-entry">
+          <div class="conf-year">2025 · Kenya</div>
+          <div>
+            <div class="conf-name">Club de Madrid Conference</div>
+            <div class="conf-desc">Delegate — Invited by Manara Center for Coexistence and Dialogue. Participated in high-level global discussions on economic resilience and youth political engagement alongside international policymakers and heads of state. Shared insights on the Nigerian context and youth's role in shaping equitable policy.</div>
+          </div>
+        </div>
+
+        <div class="conf-entry">
+          <div class="conf-year">2024 · Remote</div>
+          <div>
+            <div class="conf-name">Global Engineering Network for Innovation & Intelligence (GEN_II)</div>
+            <div class="conf-desc">Remote Researcher — Engaged in comprehensive learning on the UN Sustainable Development Goals (SDGs). Participated in interactive sessions with global experts, policy leaders, and GEN_II mentors. Contributed to high-impact SDG-aligned projects focused on sustainable development priorities.</div>
+          </div>
+        </div>
+
+        <div class="conf-entry">
+          <div class="conf-year">2023–2025 · Dubai & Lagos</div>
+          <div>
+            <div class="conf-name">Manara Center International Events</div>
+            <div class="conf-desc">Represented the Manara Center at multiple high-profile peace and dialogue forums in Dubai, UAE and across Nigeria. Presented data-driven peacebuilding success stories and contributed to cross-cultural dialogue initiatives reaching 2,000+ direct beneficiaries.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 LEADERSHIP -->
+  <div class="accordion" id="acc-lead">
+    <button class="accordion-trigger" onclick="toggle('acc-lead')">
+      <span class="acc-number">07</span>
+      <div>
+        <div class="acc-title">Leadership</div>
+        <div class="acc-subtitle">Community & Civic Roles</div>
+      </div>
+      <span class="acc-icon">+</span>
+    </button>
+    <div class="accordion-body">
+      <div class="accordion-inner">
+
+        <div class="lead-entry">
+          <div class="lead-header">
+            <div class="lead-role">Community Manager & Project Lead</div>
+            <div class="lead-period">2023 – 2025</div>
+          </div>
+          <div class="lead-org">Manara Center for Coexistence and Dialogue</div>
+          <div class="lead-desc">Orchestrated community programmes celebrating diversity and inclusion. Managed financial resources, coordinated cross-cultural events, and created engaging content that reached diverse audiences across geographies. Bridged communities through dialogue, data, and creativity.</div>
+        </div>
+
+        <div class="lead-entry">
+          <div class="lead-header">
+            <div class="lead-role">Personal Assistant to Departmental President</div>
+            <div class="lead-period">2023 – 2025</div>
+          </div>
+          <div class="lead-org">Bayero University, Kano</div>
+          <div class="lead-desc">Supported transformative student governance initiatives, managed correspondence and administrative records, and facilitated communication between student leadership and faculty. Helped bridge diverse student communities across a large public university.</div>
+        </div>
+
+        <div class="lead-entry">
+          <div class="lead-header">
+            <div class="lead-role">Senior Prefect</div>
+            <div class="lead-period">2017 – 2018</div>
+          </div>
+          <div class="lead-org">Oloye Comprehensive College</div>
+          <div class="lead-desc">Fostered a positive, inclusive school environment through peer leadership. Introduced structured monthly activities, represented the student body in competitions, and championed a culture of respect and accountability.</div>
+        </div>
+
+        <div class="lead-entry">
+          <div class="lead-header">
+            <div class="lead-role">NGO Founder & Director</div>
+            <div class="lead-period">Ongoing</div>
+          </div>
+          <div class="lead-org">Youth Empowerment & Vulnerable Groups Initiative</div>
+          <div class="lead-desc">Leads an NGO focused on empowering youth and supporting vulnerable groups through advocacy, capacity building, and community-based programmes aligned with SDG 16 — Peace, Justice and Strong Institutions.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 08 CONTACT -->
+  <div class="accordion" id="acc-contact">
+    <button class="accordion-trigger" onclick="toggle('acc-contact')">
+      <span class="acc-number">08</span>
+      <div>
+        <div class="acc-title">Contact</div>
+        <div class="acc-subtitle">Get in Touch</div>
+      </div>
+      <span class="acc-icon">+</span>
+    </button>
+    <div class="accordion-body">
+      <div class="accordion-inner">
+        <div class="contact-grid">
+          <div class="contact-item">
+            <div class="contact-label">Email</div>
+            <a href="mailto:issarahmata@gmail.com" class="contact-value">issarahmata@gmail.com</a>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">Phone</div>
+            <span class="contact-value">09036449279 / 09043791604</span>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">Location</div>
+            <span class="contact-value">No 35, Olaitan Street<br>Surulere, Lagos — Nigeria</span>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">Languages</div>
+            <span class="contact-value">English · Yoruba · Hausa</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  function toggle(id) {
+    const acc = document.getElementById(id);
+    const isOpen = acc.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.accordion.open').forEach(a => a.classList.remove('open'));
+
+    // Open clicked if it wasn't already open
+    if (!isOpen) acc.classList.add('open');
+  }
+
+  // Auto-open About on load
+  window.addEventListener('load', () => {
+    setTimeout(() => toggle('acc-about'), 400);
+  });
+</script>
+</body>
+</html>
